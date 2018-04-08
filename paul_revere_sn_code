@@ -1,4 +1,4 @@
-œ(*import data from wolfram data repository and format*)
+(*import data from wolfram data repository and format*)
 
 PaulRevereData =
   ResourceData[
