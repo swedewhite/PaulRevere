@@ -1,0 +1,165 @@
+œ(*import data from wolfram data repository and format*)
+
+PaulRevereData =
+  ResourceData[
+   "Paul Revere's Social Network in Colonial Boston"
+   ];
+
+colonistsNames = Normal@PaulRevereData[All, "Name"];
+
+(*define lodges and create paul revere's membership graph*)
+
+lodges = Normal@Rest[Keys[First[PaulRevereData]]];
+With[{
+  g = Flatten[Normal[With[
+        {row = #, name = #Name},
+        If[
+           row[#], name \[UndirectedEdge] #, Nothing] & /@ lodges] & /@
+       PaulRevereData]]},
+  HighlightGraph[
+  g,
+  NeighborhoodGraph[
+   g,
+   "Paul Revere", 1,
+   VertexLabels -> Automatic], 
+  GraphLayout -> "RadialDrawing",
+  VertexLabels -> Automatic, 
+  VertexLabelStyle -> Background -> White,
+  ImageSize -> Large]]
+
+(*create graph of lodge associations*)
+
+HighlightGraph[
+ Flatten[Normal[With[
+      {row = #, name = #Name},
+      If[
+         row[#], name \[UndirectedEdge] #, Nothing] & /@ lodges] & /@ 
+    PaulRevereData]],
+ lodges,
+ VertexLabels -> Placed["Name", Top],
+ ImageSize -> Large, 
+ VertexLabelStyle -> Background -> White, 
+ VertexSize -> 3]
+
+(*create individual level graph*)
+
+bipartiteAdjacencyMatrix =
+  Boole@Normal[
+    PaulRevereData[Values, Rest]];
+edges = ReplacePart[
+   bipartiteAdjacencyMatrix.Transpose[bipartiteAdjacencyMatrix], {i_, 
+     i_} -> 0];
+personPersonGraph = AdjacencyGraph[colonistsNames, edges,
+  EdgeStyle -> {Opacity[.1]},
+  GraphLayout -> "RadialDrawing", 
+  ImageSize -> Large,
+  VertexSize -> Automatic,
+  VertexLabels -> Placed["Name", Tooltip],
+  PlotLabel -> "Colonist Network"]
+
+(*create function to higlight centrality measures in graphs*)
+
+HighlightCentrality[g_, cc_] :=
+ HighlightGraph[
+  g,
+  Table[Style[VertexList[g][[i]],
+    ColorData["TemperatureMap"][cc[[i]]/Max[cc]]],
+   {i, VertexCount[g]}]]
+
+(*graph of betweenness centrality*)
+
+HighlightCentrality[
+ personPersonGraph,
+ BetweennessCentrality[
+  personPersonGraph]]
+
+(*create function to create tables of centrality measures*)
+
+TopFive[measure_, heading_] :=
+ TableForm[
+  TakeLargestBy[
+   Transpose[
+    {colonistsNames, measure}],
+   #[[2]] &, 5],
+  TableHeadings -> {None, {"Colonist Rebel", heading}}]
+
+(*betweenness table*)
+
+betweenness =
+  BetweennessCentrality[
+   personPersonGraph];
+TopFive[
+ betweenness,
+ "Betweenness Centrality"]
+
+(*closeness centrality graph*)
+
+HighlightCentrality[
+ personPersonGraph,
+ ClosenessCentrality[
+  personPersonGraph]]
+
+(*closeness table*)
+
+closeness =
+  ClosenessCentrality[
+   personPersonGraph];
+TopFive[
+ closeness,
+ "Closeness"]
+
+(*eigenvector centrality graph*)
+
+HighlightCentrality[
+ personPersonGraph,
+ EigenvectorCentrality[
+  personPersonGraph]]
+
+(*eigenvector centrality graph*)
+
+eigenvectorCentrality =
+  EigenvectorCentrality[
+   personPersonGraph];
+TopFive[
+ eigenvectorCentrality,
+ "Eigenvector Centrality"]
+
+(*remove top five agents*)
+
+sHoleData =
+  Select[
+   PaulRevereData,
+   ! MemberQ[
+      {"Paul Revere",
+       "Thomas Chase",
+       "Henry Bass",
+       "Nathaniel Barber",
+       "Thomas Urann"},
+      #Name] &];
+
+shcolonistsNames =
+  StringJoin[
+     Riffle[
+      Reverse[
+       StringSplit[#, "."]], " "]] & /@ Normal@sHoleData[All, "Name"];
+
+(*build graph without top five actors and compare*)
+
+shbipartiteAdjacencyMatrix =
+  Boole@Normal[
+    sHoleData[Values, Rest]];
+shedges = 
+  ReplacePart[
+   shbipartiteAdjacencyMatrix.Transpose[
+     shbipartiteAdjacencyMatrix], {i_, i_} -> 0];
+shpersonPersonGraph =
+  AdjacencyGraph[
+   shcolonistsNames, shedges,
+   EdgeStyle -> {Opacity[.1]},
+   GraphLayout -> "RadialDrawing",
+   VertexLabels -> Placed["Name", Tooltip], 
+   PlotLabel -> "Without Key Colonists"];
+
+GraphicsRow[
+ {shpersonPersonGraph, personPersonGraph}, 
+ ImageSize -> Large]

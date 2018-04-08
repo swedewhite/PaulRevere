@@ -1,0 +1,623 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='WolframDesktop 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       161,          7]
+NotebookDataLength[     26343,        615]
+NotebookOptionsPosition[     22860,        554]
+NotebookOutlinePosition[     23213,        570]
+CellTagsIndexPosition[     23170,        567]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+  "import", " ", "data", " ", "from", " ", "wolfram", " ", "data", " ", 
+   "repository", " ", "and", " ", "format"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.732200758373604*^9, 3.7322007707075*^9}, {
+  3.7322008305275784`*^9, 
+  3.732200843266968*^9}},ExpressionUUID->"c5adc6a3-3f0c-49a2-9c7d-\
+88ebc54e164c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PaulRevereData", "=", "\[IndentingNewLine]", 
+   RowBox[{
+   "ResourceData", "[", "\[IndentingNewLine]", 
+    "\"\<Paul Revere's Social Network in Colonial Boston\>\"", 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.707579799279881*^9, 3.707579830800598*^9}, {
+   3.707579863926134*^9, 3.707579873515698*^9}, {3.707589465182304*^9, 
+   3.707589469226205*^9}, 3.70759132448799*^9, {3.707595799591281*^9, 
+   3.707595815773447*^9}, 3.70766836275758*^9, {3.732201158233283*^9, 
+   3.732201166116826*^9}},
+ CellID->1797617280,ExpressionUUID->"91846667-8f9a-4181-8ccd-3279cff4fa88"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"colonistsNames", "=", 
+   RowBox[{"Normal", "@", 
+    RowBox[{"PaulRevereData", "[", 
+     RowBox[{"All", ",", "\"\<Name\>\""}], "]"}]}]}], ";"}]], "Input",
+ CellChangeTimes->{3.707579895491321*^9},
+ CellLabel->"In[6]:=",
+ CellID->468058744,ExpressionUUID->"fe4802a4-b85e-464a-9554-b5a5f73246c6"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+  "define", " ", "lodges", " ", "and", " ", "create", " ", "paul", " ", 
+   RowBox[{"revere", "'"}], "s", " ", "membership", " ", "graph"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.7322011933448267`*^9, 3.732201203078506*^9}, {
+  3.7322013380996943`*^9, 
+  3.7322013397242727`*^9}},ExpressionUUID->"e9495625-e6f7-4384-a18a-\
+5b29c5d2f59e"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"lodges", " ", "=", 
+   RowBox[{"Normal", "@", 
+    RowBox[{"Rest", "[", 
+     RowBox[{"Keys", "[", 
+      RowBox[{"First", "[", "PaulRevereData", "]"}], "]"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"With", "[", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{"g", " ", "=", 
+     RowBox[{"Flatten", "[", 
+      RowBox[{"Normal", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"With", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"row", " ", "=", " ", "#"}], ",", 
+             RowBox[{"name", " ", "=", " ", "#Name"}]}], "}"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"If", "[", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"row", "[", "#", "]"}], ",", 
+               RowBox[{"name", " ", "\[UndirectedEdge]", "#"}], ",", 
+               "Nothing"}], "]"}], "&"}], "/@", "lodges"}]}], "]"}], "&"}], "/@",
+         "PaulRevereData"}], "]"}], "]"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", " ", 
+   RowBox[{"HighlightGraph", "[", "\[IndentingNewLine]", 
+    RowBox[{"g", ",", "\[IndentingNewLine]", 
+     RowBox[{"NeighborhoodGraph", "[", "\[IndentingNewLine]", 
+      RowBox[{
+      "g", ",", "\[IndentingNewLine]", "\"\<Paul Revere\>\"", ",", "1", ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"VertexLabels", "\[Rule]", "Automatic"}]}], "]"}], ",", " ", 
+     "\[IndentingNewLine]", 
+     RowBox[{"GraphLayout", "\[Rule]", "\"\<RadialDrawing\>\""}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"VertexLabels", "\[Rule]", "Automatic"}], ",", " ", 
+     "\[IndentingNewLine]", 
+     RowBox[{"VertexLabelStyle", "\[Rule]", 
+      RowBox[{"Background", "->", "White"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.7075669974290533`*^9, 3.7075670074683867`*^9}, 
+   3.7075680533801317`*^9, {3.7075695539685917`*^9, 3.70756955867936*^9}, {
+   3.707570329594778*^9, 3.707570400111899*^9}, {3.707572514717824*^9, 
+   3.7075726881254063`*^9}, {3.7075751688648643`*^9, 3.707575200102439*^9}, {
+   3.707668401755492*^9, 3.7076684027062483`*^9}, {3.732201207495965*^9, 
+   3.7322012996693277`*^9}, {3.7322014251546*^9, 3.732201442136561*^9}, {
+   3.7322015398459587`*^9, 3.732201542808214*^9}},
+ CellID->453123384,ExpressionUUID->"d43df6b6-e654-428e-9c94-4ee72886db6e"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+  "create", " ", "graph", " ", "of", " ", "lodge", " ", "associations"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.732201343055725*^9, 
+  3.732201357760789*^9}},ExpressionUUID->"37f4f624-9b80-4908-828a-\
+efc4e026de99"],
+
+Cell[BoxData[
+ RowBox[{"HighlightGraph", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Flatten", "[", 
+    RowBox[{"Normal", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"With", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"row", " ", "=", " ", "#"}], ",", 
+           RowBox[{"name", " ", "=", " ", "#Name"}]}], "}"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"If", "[", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"row", "[", "#", "]"}], ",", 
+             RowBox[{"name", " ", "\[UndirectedEdge]", "#"}], ",", 
+             "Nothing"}], "]"}], "&"}], "/@", "lodges"}]}], "]"}], "&"}], "/@",
+       "PaulRevereData"}], "]"}], "]"}], ",", "\[IndentingNewLine]", "lodges",
+    ",", "\[IndentingNewLine]", 
+   RowBox[{"VertexLabels", "\[Rule]", 
+    RowBox[{"Placed", "[", 
+     RowBox[{"\"\<Name\>\"", ",", "Top"}], "]"}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", " ", "\[IndentingNewLine]", 
+   RowBox[{"VertexLabelStyle", "\[Rule]", 
+    RowBox[{"Background", "\[Rule]", "White"}]}], ",", " ", 
+   "\[IndentingNewLine]", 
+   RowBox[{"VertexSize", "\[Rule]", "3"}]}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.707580306771904*^9, {3.707651586677639*^9, 3.707651680888898*^9}, {
+   3.707651713601755*^9, 3.707651793020792*^9}, {3.707651831952585*^9, 
+   3.707651868036723*^9}, {3.707668970674576*^9, 3.7076689713290653`*^9}, {
+   3.732201371894662*^9, 3.732201404655369*^9}, 3.732201448137027*^9},
+ CellID->1668600847,ExpressionUUID->"639990d1-e710-4574-a29b-02d68e101fc2"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"create", " ", "individual", " ", "level", " ", "graph"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.7322014810416183`*^9, 
+  3.732201493899028*^9}},ExpressionUUID->"4a058ef9-0c0c-4b50-b029-\
+6bace98e8049"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bipartiteAdjacencyMatrix", "=", "\[IndentingNewLine]", 
+   RowBox[{"Boole", "@", 
+    RowBox[{"Normal", "[", "\[IndentingNewLine]", 
+     RowBox[{"PaulRevereData", "[", 
+      RowBox[{"Values", ",", "Rest"}], "]"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"edges", "=", 
+   RowBox[{"ReplacePart", "[", 
+    RowBox[{
+     RowBox[{"bipartiteAdjacencyMatrix", ".", 
+      RowBox[{"Transpose", "[", "bipartiteAdjacencyMatrix", "]"}]}], ",", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"i_", ",", "i_"}], "}"}], "\[Rule]", "0"}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"personPersonGraph", "=", 
+  RowBox[{"AdjacencyGraph", "[", 
+   RowBox[{"colonistsNames", ",", "edges", ",", "\[IndentingNewLine]", 
+    RowBox[{"EdgeStyle", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Opacity", "[", ".1", "]"}], "}"}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"GraphLayout", "\[Rule]", "\"\<RadialDrawing\>\""}], ",", " ", 
+    "\[IndentingNewLine]", 
+    RowBox[{"ImageSize", "\[Rule]", "Large"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"VertexSize", "\[Rule]", "Automatic"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"VertexLabels", "\[Rule]", 
+     RowBox[{"Placed", "[", 
+      RowBox[{"\"\<Name\>\"", ",", "Tooltip"}], "]"}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"PlotLabel", "\[Rule]", "\"\<Colonist Network\>\""}]}], 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{
+  3.7074244359334373`*^9, {3.7074997601272593`*^9, 3.707499764928041*^9}, {
+   3.7075580900566883`*^9, 3.707558110320232*^9}, {3.707558669478674*^9, 
+   3.7075586814785843`*^9}, {3.707565602926244*^9, 3.707565610700897*^9}, {
+   3.7075684523031197`*^9, 3.7075684714356747`*^9}, {3.707572744606686*^9, 
+   3.7075727471649847`*^9}, {3.707573107745537*^9, 3.70757311365901*^9}, 
+   3.707574136641603*^9, {3.707580842313716*^9, 3.70758090054988*^9}, 
+   3.707651212695684*^9, 3.707668434427046*^9, {3.732201514988377*^9, 
+   3.73220152380425*^9}, {3.7322019844091988`*^9, 3.7322019880512953`*^9}},
+ CellID->1743791179,ExpressionUUID->"f40b4233-9832-413b-b55f-90941cc45ce1"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+  "create", " ", "function", " ", "to", " ", "higlight", " ", "centrality", 
+   " ", "measures", " ", "in", " ", "graphs"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.732201565886458*^9, 
+  3.732201576977412*^9}},ExpressionUUID->"f0e767b3-fb40-47cf-a7e1-\
+bf0b8bd1c88e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"HighlightCentrality", "[", 
+   RowBox[{"g_", ",", "cc_"}], "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"HighlightGraph", "[", "\[IndentingNewLine]", 
+   RowBox[{"g", ",", "\[IndentingNewLine]", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"VertexList", "[", "g", "]"}], "[", 
+         RowBox[{"[", "i", "]"}], "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"ColorData", "[", "\"\<TemperatureMap\>\"", "]"}], "[", 
+         RowBox[{
+          RowBox[{"cc", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "/", 
+          RowBox[{"Max", "[", "cc", "]"}]}], "]"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", 
+        RowBox[{"VertexCount", "[", "g", "]"}]}], "}"}]}], "]"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{
+  3.707581003250484*^9, {3.732201582958046*^9, 3.73220159977072*^9}},
+ CellID->1156849610,ExpressionUUID->"4241036f-78f0-4b23-800b-67acb0f9d519"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"graph", " ", "of", " ", "betweenness", " ", "centrality"}], 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.732201612856001*^9, 
+  3.732201619798399*^9}},ExpressionUUID->"7609cbe5-0463-4077-a10d-\
+c78a4e6e06f0"],
+
+Cell[BoxData[
+ RowBox[{"HighlightCentrality", "[", "\[IndentingNewLine]", 
+  RowBox[{"personPersonGraph", ",", "\[IndentingNewLine]", 
+   RowBox[{
+   "BetweennessCentrality", "[", "\[IndentingNewLine]", "personPersonGraph", 
+    "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.707581151476718*^9, 3.707581155356649*^9}, {
+  3.7322016245284233`*^9, 3.732201653763603*^9}},
+ CellID->157833429,ExpressionUUID->"27ca0f82-561d-4902-a158-fe439027b48b"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+  "create", " ", "function", " ", "to", " ", "create", " ", "tables", " ", 
+   "of", " ", "centrality", " ", "measures"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.732201663261547*^9, 
+  3.732201675294414*^9}},ExpressionUUID->"484e5636-0de0-460c-b047-\
+735cc589e6c2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"TopFive", "[", 
+   RowBox[{"measure_", ",", "heading_"}], "]"}], ":=", "\[IndentingNewLine]", 
+  
+  RowBox[{"TableForm", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"TakeLargestBy", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Transpose", "[", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"colonistsNames", ",", "measure"}], "}"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], "&"}], ",", "5"}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"TableHeadings", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"None", ",", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Colonist Rebel\>\"", ",", "heading"}], "}"}]}], 
+      "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{
+  3.7075813252834387`*^9, {3.707656523589759*^9, 3.7076565996487837`*^9}, {
+   3.7076617313370337`*^9, 3.707661779306506*^9}, {3.707665012733752*^9, 
+   3.7076650853287516`*^9}, {3.707665135588752*^9, 3.707665166874752*^9}, {
+   3.707671527203889*^9, 3.707671548583152*^9}, {3.7076749211984158`*^9, 
+   3.707674927176572*^9}, {3.7076749696214743`*^9, 3.707674971971488*^9}, {
+   3.707676195528913*^9, 3.7076761970338583`*^9}, {3.7322016808758783`*^9, 
+   3.7322016981506653`*^9}},
+ CellID->781239647,ExpressionUUID->"f4a7e4cb-4372-47d1-b1f6-098a099acdae"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"betweenness", " ", "table"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.732201708838072*^9, 
+  3.7322017140013437`*^9}},ExpressionUUID->"9523626a-8093-4e13-bef3-\
+1f8a96872e97"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"betweenness", "=", "\[IndentingNewLine]", 
+   RowBox[{
+   "BetweennessCentrality", "[", "\[IndentingNewLine]", "personPersonGraph", 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"TopFive", "[", "\[IndentingNewLine]", 
+  RowBox[{
+  "betweenness", ",", "\[IndentingNewLine]", 
+   "\"\<Betweenness Centrality\>\""}], "]"}]}], "Input",
+ CellChangeTimes->{
+  3.7075813252834387`*^9, {3.707656523589759*^9, 3.7076565996487837`*^9}, {
+   3.7076617313370337`*^9, 3.707661779306506*^9}, {3.707665012733752*^9, 
+   3.7076650200367517`*^9}, {3.7076651804187517`*^9, 
+   3.7076651943217516`*^9}, {3.7322017178647423`*^9, 3.7322017357220287`*^9}},
+ 
+ CellID->287027068,ExpressionUUID->"b66bce7a-20d7-4abb-a170-fb99f9a233c1"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"closeness", " ", "centrality", " ", "graph"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.732201745784966*^9, 
+  3.7322017514614487`*^9}},ExpressionUUID->"4fa03c93-d6f2-49f5-b566-\
+9b58083aa40b"],
+
+Cell[BoxData[
+ RowBox[{"HighlightCentrality", "[", "\[IndentingNewLine]", 
+  RowBox[{"personPersonGraph", ",", "\[IndentingNewLine]", 
+   RowBox[{
+   "ClosenessCentrality", "[", "\[IndentingNewLine]", "personPersonGraph", 
+    "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.707581689682816*^9, {3.732201755234838*^9, 3.732201760319669*^9}},
+ CellID->53820827,ExpressionUUID->"8787f9e0-0692-445d-a751-3233028ff5f0"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"closeness", " ", "table"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.732201769974679*^9, 
+  3.7322017746028976`*^9}},ExpressionUUID->"e5092b2f-b24e-42c3-86e6-\
+98d56f61aa12"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"closeness", "=", "\[IndentingNewLine]", 
+   RowBox[{
+   "ClosenessCentrality", "[", "\[IndentingNewLine]", "personPersonGraph", 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"TopFive", "[", "\[IndentingNewLine]", 
+  RowBox[{"closeness", ",", "\[IndentingNewLine]", "\"\<Closeness\>\""}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{
+  3.707581774858428*^9, {3.707661797259533*^9, 3.707661797853715*^9}, {
+   3.707664315260333*^9, 3.7076643194277496`*^9}, 3.707664987639752*^9, {
+   3.7076652056097517`*^9, 3.7076652117997518`*^9}, {3.732201781144105*^9, 
+   3.7322017898547993`*^9}, {3.732201852572812*^9, 3.732201853619975*^9}},
+ CellID->1131576356,ExpressionUUID->"bfdbe41f-cfdb-4bef-af85-2bf2d5c49285"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"eigenvector", " ", "centrality", " ", "graph"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.7322018048733883`*^9, 
+  3.732201815731875*^9}},ExpressionUUID->"c211594a-dfa8-4758-bded-\
+fd3cc782d590"],
+
+Cell[BoxData[
+ RowBox[{"HighlightCentrality", "[", "\[IndentingNewLine]", 
+  RowBox[{"personPersonGraph", ",", "\[IndentingNewLine]", 
+   RowBox[{
+   "EigenvectorCentrality", "[", "\[IndentingNewLine]", "personPersonGraph", 
+    "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.675679494525675*^9, 3.675679625381959*^9}, {
+   3.675679660947502*^9, 3.67567970440246*^9}, {3.675679743109909*^9, 
+   3.675679758485651*^9}, {3.675691240143319*^9, 3.6756912429114323`*^9}, 
+   3.67569437744668*^9, 3.675694499353332*^9, {3.6756953445375757`*^9, 
+   3.675695345655106*^9}, {3.676286271969921*^9, 3.676286302097583*^9}, {
+   3.703424697505031*^9, 3.703424718983439*^9}, {3.707558602416593*^9, 
+   3.7075586205279827`*^9}, {3.707575717410109*^9, 3.7075757232738256`*^9}, {
+   3.7322018194172583`*^9, 3.73220182354943*^9}},
+ CellID->1400695676,ExpressionUUID->"1daab369-4c2c-448a-90da-b5f3ec74fe09"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"eigenvector", " ", "centrality", " ", "graph"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.732201830835096*^9, 
+  3.7322018400672493`*^9}},ExpressionUUID->"f0c3aeae-3007-4e76-b8e3-\
+249fb9d4bfca"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"eigenvectorCentrality", "=", "\[IndentingNewLine]", 
+   RowBox[{
+   "EigenvectorCentrality", "[", "\[IndentingNewLine]", "personPersonGraph", 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{"TopFive", "[", "\[IndentingNewLine]", 
+  RowBox[{
+  "eigenvectorCentrality", ",", "\[IndentingNewLine]", 
+   "\"\<Eigenvector Centrality\>\""}], "]"}]}], "Input",
+ CellChangeTimes->{{3.703501754208894*^9, 3.703501850642891*^9}, {
+   3.70758529595887*^9, 3.707585322514948*^9}, 3.707650213843707*^9, {
+   3.7076618553522015`*^9, 3.707661855915783*^9}, {3.7076641364284515`*^9, 
+   3.7076642089747057`*^9}, {3.707664242960104*^9, 3.7076642432991376`*^9}, 
+   3.7076642843632436`*^9, {3.7076652630127516`*^9, 3.7076652733237514`*^9}, {
+   3.7322018431186733`*^9, 3.732201857565795*^9}},
+ CellID->1864500299,ExpressionUUID->"4a01d9a0-d443-4fdb-85f9-c98482458a07"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"remove", " ", "top", " ", "five", " ", "agents"}], "*)"}]], "Input",\
+
+ CellChangeTimes->{{3.732201876934422*^9, 
+  3.732201886977734*^9}},ExpressionUUID->"b5d7e361-109b-4ebf-a7fa-\
+363d5c0efa9a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"sHoleData", "=", "\[IndentingNewLine]", 
+   RowBox[{"Select", "[", "\[IndentingNewLine]", 
+    RowBox[{"PaulRevereData", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"!", 
+       RowBox[{"MemberQ", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<Paul Revere\>\"", ",", "\[IndentingNewLine]", 
+           "\"\<Thomas Chase\>\"", ",", "\[IndentingNewLine]", 
+           "\"\<Henry Bass\>\"", ",", "\[IndentingNewLine]", 
+           "\"\<Nathaniel Barber\>\"", ",", "\[IndentingNewLine]", 
+           "\"\<Thomas Urann\>\""}], "}"}], ",", "\[IndentingNewLine]", 
+         "#Name"}], "]"}]}], "&"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.70758562295588*^9, 3.707585736406105*^9}, {
+   3.7076620187627435`*^9, 3.7076620477609587`*^9}, {3.7076622601225586`*^9, 
+   3.7076623077713585`*^9}, {3.7076623587795587`*^9, 3.707662373583359*^9}, {
+   3.7076625282515583`*^9, 3.707662546363559*^9}, {3.7076626253791585`*^9, 
+   3.707662626425359*^9}, 3.7076627483001585`*^9, 3.707663516325759*^9, {
+   3.70766755762605*^9, 3.70766756496345*^9}, {3.7076675977192497`*^9, 
+   3.70766763359245*^9}, {3.7076762561424828`*^9, 3.70767626114185*^9}, {
+   3.732201891081297*^9, 3.7322019180443277`*^9}},
+ CellID->81542937,ExpressionUUID->"d813a19a-1b3d-4611-a302-9ffacad0603a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"shcolonistsNames", "=", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"StringJoin", "[", "\[IndentingNewLine]", 
+      RowBox[{"Riffle", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Reverse", "[", "\[IndentingNewLine]", 
+         RowBox[{"StringSplit", "[", 
+          RowBox[{"#", ",", "\"\<.\>\""}], "]"}], "]"}], ",", "\"\< \>\""}], 
+       "]"}], "]"}], "&"}], "/@", 
+    RowBox[{"Normal", "@", 
+     RowBox[{"sHoleData", "[", 
+      RowBox[{"All", ",", "\"\<Name\>\""}], "]"}]}]}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.707133232124119*^9, 3.707133252746719*^9}, {
+  3.7075004530904427`*^9, 3.707500453537075*^9}, {3.7322019400923033`*^9, 
+  3.732201945162616*^9}},
+ CellID->1479094898,ExpressionUUID->"3722b77e-f7eb-4510-be4c-48ef26624c0f"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+  "build", " ", "graph", " ", "without", " ", "top", " ", "five", " ", 
+   "actors", " ", "and", " ", "compare"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.7322019587894*^9, 
+  3.732201971404723*^9}},ExpressionUUID->"15a78b9f-5bb3-4151-b740-\
+f800c363d395"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"shbipartiteAdjacencyMatrix", "=", "\[IndentingNewLine]", 
+   RowBox[{"Boole", "@", 
+    RowBox[{"Normal", "[", "\[IndentingNewLine]", 
+     RowBox[{"sHoleData", "[", 
+      RowBox[{"Values", ",", "Rest"}], "]"}], "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"shedges", "=", 
+   RowBox[{"ReplacePart", "[", 
+    RowBox[{
+     RowBox[{"shbipartiteAdjacencyMatrix", ".", 
+      RowBox[{"Transpose", "[", "shbipartiteAdjacencyMatrix", "]"}]}], ",", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"i_", ",", "i_"}], "}"}], "\[Rule]", "0"}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"shpersonPersonGraph", "=", "\[IndentingNewLine]", 
+   RowBox[{"AdjacencyGraph", "[", "\[IndentingNewLine]", 
+    RowBox[{"shcolonistsNames", ",", "shedges", ",", "\[IndentingNewLine]", 
+     RowBox[{"EdgeStyle", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"Opacity", "[", ".1", "]"}], "}"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"GraphLayout", "->", "\"\<RadialDrawing\>\""}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"VertexLabels", "\[Rule]", 
+      RowBox[{"Placed", "[", 
+       RowBox[{"\"\<Name\>\"", ",", "Tooltip"}], "]"}]}], ",", " ", 
+     "\[IndentingNewLine]", 
+     RowBox[{"PlotLabel", "\[Rule]", "\"\<Without Key Colonists\>\""}]}], 
+    "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.707133232124119*^9, 3.707133252746719*^9}, {
+   3.7075004530904427`*^9, 3.707500453537075*^9}, {3.707661934338031*^9, 
+   3.7076619437919703`*^9}, {3.7076620032458425`*^9, 3.70766200362024*^9}, 
+   3.707662062745263*^9, 3.7076626608751583`*^9, {3.7076626928915586`*^9, 
+   3.7076627249237585`*^9}, {3.7076631066849585`*^9, 
+   3.7076631106689587`*^9}, {3.70766767567505*^9, 3.7076676769074497`*^9}, 
+   3.732201977771092*^9, {3.7322020185189047`*^9, 3.7322020488827143`*^9}},
+ CellID->151904569,ExpressionUUID->"810f1584-6701-49d3-92c1-eed2743f6006"],
+
+Cell[BoxData[
+ RowBox[{"GraphicsRow", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"shpersonPersonGraph", ",", "personPersonGraph"}], "}"}], ",", 
+   " ", "\[IndentingNewLine]", 
+   RowBox[{"ImageSize", "\[Rule]", "Large"}]}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.707425103696354*^9, {3.707493551492693*^9, 3.707493586797617*^9}, {
+   3.707650341502542*^9, 3.7076503831322308`*^9}, {3.732202060190832*^9, 
+   3.732202062143279*^9}},
+ CellID->204012594,ExpressionUUID->"52af772b-0a43-41d3-a4b1-cb8d44c95ab4"]
+},
+WindowSize->{752, 759},
+WindowMargins->{{Automatic, 1}, {Automatic, 0}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 22, \
+2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[561, 20, 352, 8, 30, "Input",ExpressionUUID->"c5adc6a3-3f0c-49a2-9c7d-88ebc54e164c"],
+Cell[916, 30, 641, 12, 94, "Input",ExpressionUUID->"91846667-8f9a-4181-8ccd-3279cff4fa88",
+ CellID->1797617280],
+Cell[1560, 44, 331, 8, 30, "Input",ExpressionUUID->"fe4802a4-b85e-464a-9554-b5a5f73246c6",
+ CellID->468058744],
+Cell[1894, 54, 383, 9, 30, "Input",ExpressionUUID->"e9495625-e6f7-4384-a18a-5b29c5d2f59e"],
+Cell[2280, 65, 2491, 54, 346, "Input",ExpressionUUID->"d43df6b6-e654-428e-9c94-4ee72886db6e",
+ CellID->453123384],
+Cell[4774, 121, 261, 7, 30, "Input",ExpressionUUID->"37f4f624-9b80-4908-828a-efc4e026de99"],
+Cell[5038, 130, 1666, 37, 220, "Input",ExpressionUUID->"639990d1-e710-4574-a29b-02d68e101fc2",
+ CellID->1668600847],
+Cell[6707, 169, 247, 6, 30, "Input",ExpressionUUID->"4a058ef9-0c0c-4b50-b029-6bace98e8049"],
+Cell[6957, 177, 2111, 45, 262, "Input",ExpressionUUID->"f40b4233-9832-413b-b55f-90941cc45ce1",
+ CellID->1743791179],
+Cell[9071, 224, 309, 7, 30, "Input",ExpressionUUID->"f0e767b3-fb40-47cf-a7e1-bf0b8bd1c88e"],
+Cell[9383, 233, 1047, 26, 136, "Input",ExpressionUUID->"4241036f-78f0-4b23-800b-67acb0f9d519",
+ CellID->1156849610],
+Cell[10433, 261, 247, 6, 30, "Input",ExpressionUUID->"7609cbe5-0463-4077-a10d-c78a4e6e06f0"],
+Cell[10683, 269, 446, 8, 94, "Input",ExpressionUUID->"27ca0f82-561d-4902-a158-fe439027b48b",
+ CellID->157833429],
+Cell[11132, 279, 307, 7, 30, "Input",ExpressionUUID->"484e5636-0de0-460c-b047-735cc589e6c2"],
+Cell[11442, 288, 1379, 31, 157, "Input",ExpressionUUID->"f4a7e4cb-4372-47d1-b1f6-098a099acdae",
+ CellID->781239647],
+Cell[12824, 321, 216, 5, 30, "Input",ExpressionUUID->"9523626a-8093-4e13-bef3-1f8a96872e97"],
+Cell[13043, 328, 755, 16, 136, "Input",ExpressionUUID->"b66bce7a-20d7-4abb-a170-fb99f9a233c1",
+ CellID->287027068],
+Cell[13801, 346, 233, 5, 30, "Input",ExpressionUUID->"4fa03c93-d6f2-49f5-b566-9b58083aa40b"],
+Cell[14037, 353, 417, 8, 94, "Input",ExpressionUUID->"8787f9e0-0692-445d-a751-3233028ff5f0",
+ CellID->53820827],
+Cell[14457, 363, 214, 5, 30, "Input",ExpressionUUID->"e5092b2f-b24e-42c3-86e6-98d56f61aa12"],
+Cell[14674, 370, 745, 14, 136, "Input",ExpressionUUID->"bfdbe41f-cfdb-4bef-af85-2bf2d5c49285",
+ CellID->1131576356],
+Cell[15422, 386, 235, 5, 30, "Input",ExpressionUUID->"c211594a-dfa8-4758-bded-fd3cc782d590"],
+Cell[15660, 393, 889, 14, 94, "Input",ExpressionUUID->"1daab369-4c2c-448a-90da-b5f3ec74fe09",
+ CellID->1400695676],
+Cell[16552, 409, 235, 5, 30, "Input",ExpressionUUID->"f0c3aeae-3007-4e76-b8e3-249fb9d4bfca"],
+Cell[16790, 416, 875, 16, 136, "Input",ExpressionUUID->"4a01d9a0-d443-4fdb-85f9-c98482458a07",
+ CellID->1864500299],
+Cell[17668, 434, 237, 6, 30, "Input",ExpressionUUID->"b5d7e361-109b-4ebf-a7fa-363d5c0efa9a"],
+Cell[17908, 442, 1368, 25, 220, "Input",ExpressionUUID->"d813a19a-1b3d-4611-a302-9ffacad0603a",
+ CellID->81542937],
+Cell[19279, 469, 817, 18, 115, "Input",ExpressionUUID->"3722b77e-f7eb-4510-be4c-48ef26624c0f",
+ CellID->1479094898],
+Cell[20099, 489, 297, 7, 30, "Input",ExpressionUUID->"15a78b9f-5bb3-4151-b740-f800c363d395"],
+Cell[20399, 498, 1919, 41, 283, "Input",ExpressionUUID->"810f1584-6701-49d3-92c1-eed2743f6006",
+ CellID->151904569],
+Cell[22321, 541, 535, 11, 73, "Input",ExpressionUUID->"52af772b-0a43-41d3-a4b1-cb8d44c95ab4",
+ CellID->204012594]
+}
+]
+*)
+
